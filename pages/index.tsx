@@ -30,6 +30,7 @@ const Home = ({ProjectCards}:HomePageProps) => {
             <div className='grid  grid-cols-3 gap-5 sm:grid-cols-1 md:grid-cols-4  '>
              {
                ProjectCards.map(project=><Card
+                key={project.link as string}
                 title={project.title as string}
                 image={project.image as string}
                 description={project.description as string}
