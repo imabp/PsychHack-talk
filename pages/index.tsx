@@ -1,8 +1,14 @@
 import type { GetServerSidePropsContext, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import Card from '../src/components/cards'
-const Home: NextPage = () => {
+import Card, { CardProps } from '../src/components/cards'
+import { getStory } from '../src/lib/storyblok'
+
+interface HomePageProps{
+  ProjectCards:CardProps[]
+}
+
+const Home = ({ProjectCards}:HomePageProps) => {
   return (
     <div>
       <Head>
@@ -22,30 +28,14 @@ const Home: NextPage = () => {
           </div>
           <div className='m-5'>
             <div className='grid  grid-cols-3 gap-5 sm:grid-cols-1 md:grid-cols-4  '>
-              <Card
-                title="Lorem Ipsum"
-                image={undefined}
-                description="Lorem Ipsum"
-                link="Lorem Ipsum"
-              />
-               <Card
-                title="Lorem Ipsum"
-                image={undefined}
-                description="Lorem Ipsum"
-                link="Lorem Ipsum"
-              />
-               <Card
-                title="Lorem Ipsum"
-                image={undefined}
-                description="Lorem Ipsum"
-                link="Lorem Ipsum"
-              />
-               <Card
-                title="Lorem Ipsum"
-                image={undefined}
-                description="Lorem Ipsum"
-                link="Lorem Ipsum"
-              />
+             {
+               ProjectCards.map(project=><Card
+                title={project.title as string}
+                image={project.image as string}
+                description={project.description as string}
+                link={project.link as string}
+              />)
+             }
             </div>
           </div>
         </div>
@@ -60,7 +50,18 @@ export default Home
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   // Write Server Side Logic 
+  const {story} = await getStory(undefined,undefined,'home');
+  const projectCards = story.content.projects.map((project:any)=>{
+    return {
+      title: project.title,
+      image: project.image.filename,
+      description:project.description,
+      link: project.link
+    }
+  })
   return {
-    props: {}, // will be passed to the page component as props
+    props: {
+      ProjectCards:projectCards as CardProps[]
+    }, // will be passed to the page component as props
   }
 }
