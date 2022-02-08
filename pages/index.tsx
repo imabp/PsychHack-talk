@@ -4,10 +4,11 @@ import AboutSection from '../src/containers/about'
 import ExperienceSection, { ExperienceCard } from '../src/containers/experience'
 import ProjectSection, { ProjectCard } from '../src/containers/projects'
 import StayConnected from '../src/containers/social'
+import { getStory } from '../src/lib/storyblok'
 
 interface HomePageProps {
   experiences: ExperienceCard[];
-  projects:ProjectCard[];
+  projects: ProjectCard[];
 }
 
 
@@ -24,7 +25,7 @@ const Home = ({ experiences, projects }: HomePageProps) => {
         <div className='min-h-screen'>
           <AboutSection />
           <ExperienceSection experiences={experiences} />
-          <ProjectSection projects={projects}/>
+          <ProjectSection projects={projects} />
           <StayConnected />
         </div>
       </main>
@@ -36,58 +37,39 @@ const Home = ({ experiences, projects }: HomePageProps) => {
 
 export default Home
 
-export const getServerSideProps = () => {
-  const experiences: ExperienceCard[] = [{
-    role: "Role",
-    company: "Company",
-    from: "Aug YYYY",
-    to: "Aug YYYY",
-    impacts: "Impacts at Job A"
-  },
-  {
-    role: "Role",
-    company: "Company",
-    from: "Aug YYYY",
-    to: "Aug YYYY",
-    impacts: "Impacts at Job B"
-  },
-  {
-    role: "Role",
-    company: "Company",
-    from: "Aug YYYY",
-    to: "Aug YYYY",
-    impacts: "Impacts at Job C"
-  }
+export const getServerSideProps = async () => {
 
-  ]
+  const response = await getStory("e636f5ff-5e22-4416-81ad-bc39defabb7b", "undefined", "undefined")
+  console.log(response);
 
-  const projects:ProjectCard[] = [{
-    name:"Project 1",
-    description: "Lorem Ipsum Lorem Ipsum",
-    link:""
-  },{
-    name:"Project 2",
-    description: "Lorem Ipsum Lorem Ipsum",
-    link:""
-  },{
-    name:"Project 3",
-    description: "Lorem Ipsum Lorem Ipsum",
-    link:""
-  },
-  {
-    name:"Project 4",
-    description: "Lorem Ipsum Lorem Ipsum",
-    link:""
-  },
-  {
-    name:"Project 5",
-    description: "Lorem Ipsum Lorem Ipsum",
-    link:""
-  },]
+  const DEV_experiences = response.story.content.experience;
+  console.log(DEV_experiences);
+
+  const DEV_projects = response.story.content.projects;
+
+
+  const experiences: ExperienceCard[] = DEV_experiences.map((e: any) => {
+    return {
+      role: e.role,
+      company: e.company,
+      from: e.from,
+      to: e.to,
+      impacts: e.impacts
+    }
+  })
+  const projects: ProjectCard[] = DEV_projects.map((e: any) => {
+    return {
+      name: e.name,
+      description: e.description,
+      link: e.link,
+    }
+  })
+
+
   return {
     props: {
       experiences: experiences,
-      projects:projects
+      projects: projects
     }
   }
 }
