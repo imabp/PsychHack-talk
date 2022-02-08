@@ -15,7 +15,7 @@ Reach out to me on twitter: [@imabptweets](https://twitter.com/imabptweets)
 1. Clone the Repo
 2. Run: `npm i`
 3. Create a new file `.env.local` as per `.env.sample` and get required tokens from Storyblok.
-3. Run: `npm run dev`
+4. Run: `npm run dev`
 ### Whats inside this repo.
 
 - NextJS + Tailwind Customized Setup for upcoming talk.
