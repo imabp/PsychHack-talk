@@ -16,7 +16,7 @@ const Home = ({ experiences, projects }: HomePageProps) => {
     <div>
       <Head>
         <title>Bugtrons</title>
-        <meta name="description" content="Hack The League! Demo Project Showcased by Abir Pal| Connect on twitter @imabptweets" />
+        <meta name="description" content="Bugtrons Talk by Abir Pal| Connect on twitter @imabptweets" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

@@ -6,7 +6,9 @@ const StayConnected = () => {
                 Stay Connected
             </div>
             <div className="text-6xl mt-5">
-                @imabptweets
+              <a
+              className="text-white hover:text-gray-200" 
+              href="https://twitter.com/imabptweets">@imabptweets</a>
             </div>
         </div>
         <div className="text-2xl font-bold mt-5">
