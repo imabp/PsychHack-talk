@@ -1,5 +1,5 @@
 ## 👋 Hey there
-Welcome to the **[bugtrons-talk](https://bugtrons.co/connect)** repo.
+Welcome to the **[PsychHack-talk](https://www.psych-hack.tech/)** repo.
 
 ### What is it?
 This repository is being used at session for most of the events which involves portfolio building using **NextJS** and **Storyblok**
@@ -27,7 +27,7 @@ Reach out to me on twitter: [@imabptweets](https://twitter.com/imabptweets)
     - Use `STORYBLOK_VERSION = "published"` in production
 
 ### Contributions
-- Found any bug, please create a new [issue](https://github.com/imabp/bugtrons-talk/issues/new?assignees=&labels=bug&template=bug.md) before working on the solution.
+- Found any bug, please create a new [issue](https://github.com/imabp/PsychHack-talk/issues/new?assignees=&labels=bug&template=bug.md) before working on the solution.
 
 - As this is only used for events and talks, introducing feature doesn't gurantee, if it will be merged or not, based on event nature and demand. 
 Its recommended to avoid raising requests for new features  due to above reason.
