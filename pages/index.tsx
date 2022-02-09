@@ -3,6 +3,7 @@ import AboutSection from '../src/containers/about'
 import ExperienceSection, { ExperienceCard } from '../src/containers/experience'
 import ProjectSection, { ProjectCard } from '../src/containers/projects'
 import StayConnected from '../src/containers/social'
+import { getStory } from '../src/lib/storyblok'
 
 interface HomePageProps {
   experiences: ExperienceCard[];
@@ -34,54 +35,32 @@ const Home = ({ experiences, projects }: HomePageProps) => {
 }
 
 export default Home
-export const getServerSideProps = () => {
-  const experiences: ExperienceCard[] = [{
-    role: "Role",
-    company: "Company",
-    from: "Aug YYYY",
-    to: "Aug YYYY",
-    impacts: "Impacts at Job A"
-  },
-  {
-    role: "Role",
-    company: "Company",
-    from: "Aug YYYY",
-    to: "Aug YYYY",
-    impacts: "Impacts at Job B"
-  },
-  {
-    role: "Role",
-    company: "Company",
-    from: "Aug YYYY",
-    to: "Aug YYYY",
-    impacts: "Impacts at Job C"
-  }
 
-  ]
+export const getServerSideProps = async() => {
 
-  const projects:ProjectCard[] = [{
-    name:"Project 1",
-    description: "Lorem Ipsum Lorem Ipsum",
-    link:""
-  },{
-    name:"Project 2",
-    description: "Lorem Ipsum Lorem Ipsum",
-    link:""
-  },{
-    name:"Project 3",
-    description: "Lorem Ipsum Lorem Ipsum",
-    link:""
-  },
-  {
-    name:"Project 4",
-    description: "Lorem Ipsum Lorem Ipsum",
-    link:""
-  },
-  {
-    name:"Project 5",
-    description: "Lorem Ipsum Lorem Ipsum",
-    link:""
-  },]
+  const response = await getStory('804ad378-f107-4b60-9b07-60ae9070b303', undefined, undefined)
+  const SB_experiences = response.story.content.experienceCards;
+  const SB_projects = response.story.content.projectCards;
+
+  const experiences: ExperienceCard[] = SB_experiences.map((e:any)=>{
+    return {
+      role: e.role,
+      company: e.company,
+      from: e.from,
+      to: e.to,
+      impacts: e.impacts,
+    }
+  })
+
+  const projects:ProjectCard[]= SB_projects.map((e:any)=>{
+    return {
+      name: e.name,
+      description: e.description,
+      link: e.link,
+    }
+  })
+ 
+
   return {
     props: {
       experiences: experiences,
