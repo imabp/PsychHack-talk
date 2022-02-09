@@ -7,6 +7,7 @@ export interface ExperienceCard {
     to: string,
     impacts: string,
 }
+
 export type ExperienceSectionProps= {
     experiences: ExperienceCard[];
 }

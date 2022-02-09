@@ -8,6 +8,7 @@ export type ProjectCard = {
     link: string,
 }
 
+
 const ProjectSection = ({ projects }: ProjectSectionProps) => {
     return <div
         className='h-screen justify-around text-black p-10
